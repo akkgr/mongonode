@@ -1248,7 +1248,13 @@ expect-ct@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/expect-ct/-/expect-ct-0.1.0.tgz#52735678de18530890d8d7b95f0ac63640958094"
 
-express@^4.16.2:
+express-async-await@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/express-async-await/-/express-async-await-1.1.0.tgz#6621d4d575a0f140afdc2c004390f15e9715f873"
+  dependencies:
+    express "^4.15.4"
+
+express@^4.15.4, express@^4.16.2:
   version "4.16.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"
   dependencies:

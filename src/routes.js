@@ -3,20 +3,15 @@ import {
 } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import eaa from 'express-async-await'
 
 const router = db => {
-    const api = Router();
+    const api = eaa(Router());
 
-    api.get('/:collection', (req, res) => {
+    api.get('/:collection', async(req, res) => {
         const collection = req.params.collection
-        db.collection(collection).find({}).toArray(function (err, docs) {
-            if (err) {
-                console.log(err);
-                res.error(err);
-            } else {
-                res.json(docs);
-            }
-        });
+        const docs = await db.collection(collection).find({}).toArray()
+        res.json(docs)
     });
 
     api.get('/login', (req, res) => {

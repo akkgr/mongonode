@@ -9,11 +9,12 @@ import router from './routes'
 import {
   MongoClient
 } from 'mongodb'
+import eaa from 'express-async-await'
 
 const url = 'mongodb://admin:Adm.123@ds243085.mlab.com:43085/estiag';
 const dbName = 'estiag'
 const port = process.env.port || 3000;
-const app = express();
+const app = eaa(express());
 app.server = http.createServer(app);
 app.use(morgan('dev'));
 app.use(compress())
@@ -28,6 +29,10 @@ const init = async() => {
     const client = await MongoClient.connect(url)
     const db = client.db(dbName)
     app.use('/', router(db))
+    app.use((err, req, res, next) => {
+      console.error(err)
+      res.status(500).send("Something broke!!")
+    })
     app.server.listen(port, () => {
       console.info(`server started on port ${port}`)
     })
