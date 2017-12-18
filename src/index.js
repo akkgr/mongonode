@@ -5,9 +5,13 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import compress from 'compression'
 import helmet from 'helmet';
-import initializeDb from './db'
 import router from './routes'
+import {
+  MongoClient
+} from 'mongodb'
 
+const url = 'mongodb://admin:Adm.123@ds243085.mlab.com:43085/estiag';
+const dbName = 'estiag'
 const port = process.env.port || 3000;
 const app = express();
 app.server = http.createServer(app);
@@ -19,11 +23,20 @@ app.use(bodyParser.json({
   limit: "10mb"
 }));
 
-initializeDb(db => {
-  app.use('/', router(db))
-  app.server.listen(port, () => {
-    console.info(`server started on port ${port}`)
-  })
-})
+const init = async() => {
+  try {
+    const client = await MongoClient.connect(url)
+    const db = client.db(dbName)
+    app.use('/', router(db))
+    app.server.listen(port, () => {
+      console.info(`server started on port ${port}`)
+    })
+  } catch (err) {
+    console.error('Failed to make database connection!');
+    console.error(err);
+  }
+}
+
+init()
 
 export default app;

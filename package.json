@@ -5,8 +5,8 @@
   "author": "DanielDeutsch <deudan1010@gmail.com>",
   "license": "none",
   "scripts": {
-    "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
-    "build": "babel src -s -D -d dist --presets es2015,stage-0",
+    "dev": "nodemon -w src --exec \"babel-node src --presets env\"",
+    "build": "babel src -s -D -d dist --presets env",
     "start": "node dist",
     "prestart": "npm run -s build",
     "test": "eslint src"
@@ -14,7 +14,7 @@
   "eslintConfig": {
     "extends": "eslint:recommended",
     "parserOptions": {
-      "ecmaVersion": 7,
+      "ecmaVersion": 8,
       "sourceType": "module"
     },
     "env": {
@@ -39,8 +39,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.13.1",
     "nodemon": "^1.13.3"
   }

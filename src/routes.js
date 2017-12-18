@@ -4,11 +4,12 @@ import {
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
-const api = db => {
+const router = db => {
     const api = Router();
 
-    api.get('/', (req, res) => {
-        db.collection('buildings').find({}).toArray(function (err, docs) {
+    api.get('/:collection', (req, res) => {
+        const collection = req.params.collection
+        db.collection(collection).find({}).toArray(function (err, docs) {
             if (err) {
                 console.log(err);
                 res.error(err);
@@ -52,4 +53,4 @@ const api = db => {
     return api
 }
 
-export default api
+export default router
