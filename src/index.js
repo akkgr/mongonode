@@ -9,6 +9,7 @@ import router from './routes'
 import {
   MongoClient
 } from 'mongodb'
+import 'babel-polyfill';
 import eaa from 'express-async-await'
 
 const url = 'mongodb://admin:Adm.123@ds243085.mlab.com:43085/estiag';
