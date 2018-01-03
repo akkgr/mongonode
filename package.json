@@ -34,7 +34,7 @@
     "express-async-await": "^1.1.0",
     "helmet": "^3.9.0",
     "jsonwebtoken": "^8.1.0",
-    "mongodb": "^3.0.0-rc0",
+    "mongodb": "^3.0.1",
     "morgan": "^1.9.0"
   },
   "devDependencies": {
@@ -42,7 +42,7 @@
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "eslint": "^4.13.1",
-    "nodemon": "^1.13.3"
+    "eslint": "^4.14.0",
+    "nodemon": "^1.14.7"
   }
 }

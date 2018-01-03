@@ -14,7 +14,7 @@ import eaa from 'express-async-await'
 
 const url = 'mongodb://admin:Adm.123@ds243085.mlab.com:43085/estiag';
 const dbName = 'estiag'
-const port = process.env.port || 3000;
+const port = process.env.port || 3001;
 const app = eaa(express());
 app.server = http.createServer(app);
 app.use(morgan('dev'));
