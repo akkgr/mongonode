@@ -39,15 +39,16 @@ const router = db => {
         });
         return;
       }
+      const token = await jwt.sign(
+        {
+          email: users[0].email,
+          username: users[0].username,
+          _id: users[0]._id
+        },
+        "RESTFULAPIs"
+      );
       res.json({
-        token: jwt.sign(
-          {
-            email: users[0].email,
-            fullName: users[0].fullName,
-            _id: users[0]._id
-          },
-          "RESTFULAPIs"
-        )
+        token: token
       });
     } catch (err) {
       res.status(500).json(err);
