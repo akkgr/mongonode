@@ -6,7 +6,7 @@ import eaa from "express-async-await";
 const router = db => {
   const api = eaa(Router());
 
-  api.get("/:collection", async (req, res) => {
+  api.get("/:collection/:p?/:ps?/:order?/:filter?", async (req, res) => {
     const collection = req.params.collection;
     try {
       const docs = await db
@@ -45,7 +45,8 @@ const router = db => {
           username: users[0].username,
           _id: users[0]._id
         },
-        "RESTFULAPIs"
+        "RESTFULAPIs",
+        { expiresIn: "1h" }
       );
       res.json({
         token: token
