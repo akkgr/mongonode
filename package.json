@@ -11,6 +11,10 @@
     "prestart": "npm run -s build",
     "test": "eslint src"
   },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  },
   "eslintConfig": {
     "extends": "eslint:recommended",
     "parserOptions": {
