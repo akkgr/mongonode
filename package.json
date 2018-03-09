@@ -11,35 +11,17 @@
     "prestart": "npm run -s build",
     "test": "eslint src"
   },
-  "prettier": {
-    "singleQuote": true,
-    "semi": false
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "parserOptions": {
-      "ecmaVersion": 8,
-      "sourceType": "module"
-    },
-    "env": {
-      "node": true
-    },
-    "rules": {
-      "no-console": 0,
-      "no-unused-vars": 1
-    }
-  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
-    "compression": "^1.7.1",
+    "compression": "^1.7.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-async-await": "^1.1.0",
-    "formidable": "^1.1.1",
-    "helmet": "^3.11.0",
-    "jsonwebtoken": "^8.1.1",
-    "mongodb": "^3.0.2",
+    "formidable": "^1.2.0",
+    "helmet": "^3.12.0",
+    "jsonwebtoken": "^8.2.0",
+    "mongodb": "^3.0.4",
     "morgan": "^1.9.0",
     "socket.io": "^2.0.4"
   },
@@ -48,7 +30,15 @@
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "eslint": "^4.18.0",
-    "nodemon": "^1.15.0"
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "nodemon": "^1.17.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
   }
 }
