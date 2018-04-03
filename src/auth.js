@@ -26,12 +26,13 @@ const auth = db => {
       }
       const token = await jwt.sign(
         {
+          _id: users[0]._id,
           email: users[0].email,
           username: users[0].username,
-          _id: users[0]._id
+          roles: users[0].roles
         },
         'RESTFULAPIs',
-        { expiresIn: '1h' }
+        { expiresIn: '8h' }
       )
       res.json({
         token: token

@@ -1,26 +1,40 @@
-const data = db => {
+const users = db => {
   const api = {}
 
   api.get = async (req, res) => {
-    const collection = req.params.collection
+    const collection = 'users'
     const page = req.params.page
     var pagesize = req.params.pagesize
     if (!pagesize) pagesize = 10
     try {
       var docs = []
+      var query = db.collection(collection).aggregate([
+        {
+          $match: {}
+        },
+        {
+          $lookup: {
+            from: 'people',
+            localField: '_id',
+            foreignField: 'userid',
+            as: 'person'
+          }
+        },
+        {
+          $project: {
+            person: { $arrayElemAt: ['$person', 0] }
+          }
+        }
+      ])
       if (page) {
         const old = (page - 1) * pagesize
-        docs = await db
-          .collection(collection)
-          .find({})
+        docs = await query
+          .toArray()
           .skip(old)
           .limit(pagesize)
           .toArray()
       } else {
-        docs = await db
-          .collection(collection)
-          .find({})
-          .toArray()
+        docs = await query.toArray()
       }
       res.json(docs)
     } catch (err) {
@@ -29,7 +43,7 @@ const data = db => {
   }
 
   api.post = async (req, res) => {
-    const collection = req.params.collection
+    const collection = 'users'
     const page = req.params.page
     var pagesize = req.params.pagesize
     if (!pagesize) pagesize = 10
@@ -42,6 +56,7 @@ const data = db => {
         docs = await db
           .collection(collection)
           .find(filter)
+          .project({ password: 0 })
           .sort(order)
           .skip(old)
           .limit(pagesize)
@@ -50,6 +65,7 @@ const data = db => {
         docs = await db
           .collection(collection)
           .find(filter)
+          .project({ password: 0 })
           .sort(order)
           .toArray()
       }
@@ -62,4 +78,4 @@ const data = db => {
   return api
 }
 
-export default data
+export default users
