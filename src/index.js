@@ -30,7 +30,7 @@ const init = async() => {
     const client = await MongoClient.connect(url)
     const db = client.db(dbName)
     app.use('/', router(db))
-    app.use((err, req, res, next) => {
+    app.use((err, req, res) => {
       console.error(err)
       res.status(500).send("Something broke!!")
     })

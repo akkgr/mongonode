@@ -43,6 +43,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.13.1",
-    "nodemon": "^1.13.3"
+    "nodemon": "^1.13.3",
+    "flow-bin": "^0.69.0"
   }
 }
