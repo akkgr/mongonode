@@ -5,8 +5,8 @@
   "author": "DanielDeutsch <deudan1010@gmail.com>",
   "license": "none",
   "scripts": {
-    "dev": "nodemon -w src --exec \"babel-node src --presets env\"",
-    "build": "babel src -s -D -d dist --presets env",
+    "dev": "nodemon -w src --exec \"babel-node src --inspect\"",
+    "build": "babel src -s -D -d dist",
     "start": "node dist",
     "prestart": "npm run -s build",
     "test": "eslint src"
@@ -20,32 +20,29 @@
     "express-async-await": "^1.1.0",
     "formidable": "^1.2.1",
     "helmet": "^3.12.0",
-    "jsonwebtoken": "^8.2.0",
-    "mongodb": "^3.0.5",
+    "jsonwebtoken": "^8.2.1",
+    "mongodb": "^3.0.6",
     "morgan": "^1.9.0",
     "socket.io": "^2.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-<<<<<<< HEAD
-    "eslint": "^4.13.1",
-    "nodemon": "^1.13.3",
-    "flow-bin": "^0.69.0"
-=======
-    "babel-eslint": "^8.2.2",
+    "babel-preset-flow": "^6.23.0",
     "eslint": "^4.19.1",
+    "eslint-plugin-flowtype": "^2.46.2",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
+    "flow-bin": "^0.69.0",
     "nodemon": "^1.17.3"
   },
   "prettier": {
     "singleQuote": true,
     "semi": false
->>>>>>> cdff52527885f02578da11237a35cb8a92f26ec1
   }
 }

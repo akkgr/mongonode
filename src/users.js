@@ -1,13 +1,16 @@
-const users = db => {
+import { Db } from 'mongodb'
+
+const users = (db: Db) => {
   const api = {}
 
   api.get = async (req, res) => {
-    const collection = 'users'
-    const page = req.params.page
-    var pagesize = req.params.pagesize
-    if (!pagesize) pagesize = 10
     try {
+      const collection = 'users'
+      const page = parseInt(req.param('page'))
+      let pagesize = parseInt(req.param('pageSize'))
+      if (!pagesize) pagesize = 10
       var docs = []
+      var total = '0'
       var query = db.collection(collection).aggregate([
         {
           $match: {}
@@ -28,8 +31,9 @@ const users = db => {
       ])
       if (page) {
         const old = (page - 1) * pagesize
+        total = await db.collection(collection).count({})
+        res.set('X-Paging-Total', total)
         docs = await query
-          .toArray()
           .skip(old)
           .limit(pagesize)
           .toArray()
