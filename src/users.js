@@ -6,15 +6,26 @@ const users = (db: Db) => {
   api.get = async (req, res) => {
     try {
       const collection = 'users'
-      const page = parseInt(req.param('page'))
-      let pagesize = parseInt(req.param('pageSize'))
+      const filter = req.query.filter
+      const page = parseInt(req.query.page)
+      let pagesize = parseInt(req.query.pageSize)
       if (!pagesize) pagesize = 10
       var docs = []
       var total = '0'
+
+      const fields = ['person.lastName', 'person.firstName']
+      const regex = new RegExp(filter, 'i')
+      const match = filter
+        ? {
+            $or: fields.map(field => {
+              return { [field]: regex }
+            })
+          }
+        : {}
+
+      console.log(match)
+
       var query = db.collection(collection).aggregate([
-        {
-          $match: {}
-        },
         {
           $lookup: {
             from: 'people',
@@ -22,6 +33,9 @@ const users = (db: Db) => {
             foreignField: 'userid',
             as: 'person'
           }
+        },
+        {
+          $match: match
         },
         {
           $project: {

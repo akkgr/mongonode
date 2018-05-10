@@ -4,22 +4,34 @@ const data = db => {
   api.get = async (req, res) => {
     const collection = req.params.collection
     const page = req.params.page
+    const filter = req.params.filter
     var pagesize = req.params.pagesize
     if (!pagesize) pagesize = 10
+
+    const fields = ['lastName', 'firstName']
+    const regex = new RegExp(filter, 'i')
+    const query = filter
+      ? {
+          $or: fields.map(field => {
+            return { [field]: regex }
+          })
+        }
+      : {}
+
     try {
       var docs = []
       if (page) {
         const old = (page - 1) * pagesize
         docs = await db
           .collection(collection)
-          .find({})
+          .find(query)
           .skip(old)
           .limit(pagesize)
           .toArray()
       } else {
         docs = await db
           .collection(collection)
-          .find({})
+          .find(query)
           .toArray()
       }
       res.json(docs)
