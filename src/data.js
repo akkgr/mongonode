@@ -2,10 +2,11 @@ const data = db => {
   const api = {}
 
   api.get = async (req, res) => {
-    const collection = req.params.collection
-    const page = req.params.page
-    const filter = req.params.filter
-    var pagesize = req.params.pagesize
+    const collection = 'buildings' //req.params.collection
+    const page = parseInt(req.query.page, 10)
+    console.log('page: ' + page)
+    const filter = req.query.filter
+    let pagesize = parseInt(req.query.pagesize, 10)
     if (!pagesize) pagesize = 10
 
     const fields = ['lastName', 'firstName']
@@ -36,7 +37,7 @@ const data = db => {
       }
       res.json(docs)
     } catch (err) {
-      res.status(500).json(err)
+      res.status(500).send(err)
     }
   }
 

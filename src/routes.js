@@ -11,10 +11,10 @@ const router = db => {
 
   api.post('/login', auth(db).login)
   api.post('/upload', files(db).upload)
-  api.get('/users/:page?/:pagesize?', users(db).get)
-  api.post('/users/:page?/:pagesize?', users(db).post)
-  api.get('/:collection/:page?/:pagesize?', data(db).get)
-  api.post('/:collection/:page?/:pagesize?', data(db).post)
+  api.get('/users', users(db).get)
+  api.post('/users', users(db).post)
+  api.get('/buildings', data(db).get)
+  api.post('/:collection', data(db).post)
 
   return api
 }
