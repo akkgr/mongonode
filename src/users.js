@@ -11,7 +11,6 @@ const users = (db: Db) => {
       let pagesize = parseInt(req.query.pageSize)
       if (!pagesize) pagesize = 10
       var docs = []
-      var total = '0'
 
       const fields = ['person.lastName', 'person.firstName']
       const regex = new RegExp(filter, 'i')
@@ -22,8 +21,6 @@ const users = (db: Db) => {
             })
           }
         : {}
-
-      console.log(match)
 
       var query = db.collection(collection).aggregate([
         {
@@ -43,10 +40,12 @@ const users = (db: Db) => {
           }
         }
       ])
+
+      var total = await db.collection(collection).count({})
+      res.set('X-Paging-Total', total)
+
       if (page) {
         const old = (page - 1) * pagesize
-        total = await db.collection(collection).count({})
-        res.set('X-Paging-Total', total)
         docs = await query
           .skip(old)
           .limit(pagesize)
