@@ -2,7 +2,7 @@ const data = db => {
   const api = {}
 
   api.get = async (req, res) => {
-    const collection = 'buildings' //req.params.collection
+    const collection = req.params.collection
     const page = parseInt(req.query.page, 10)
     console.log('page: ' + page)
     const filter = req.query.filter
