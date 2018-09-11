@@ -19,11 +19,7 @@ app.server = http.createServer(app)
 app.use(morgan('dev'))
 app.use(compress())
 app.use(helmet())
-app.use(
-  cors({
-    exposedHeaders: ['X-Paging-Total']
-  })
-)
+app.use(cors())
 app.use(
   bodyParser.json({
     limit: '10mb'
