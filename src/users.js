@@ -42,7 +42,7 @@ const users = (db: Db) => {
       ])
 
       var total = await db.collection(collection).count({})
-      res.set('X-Paging-Total', total)
+      res.set('x-paging-total', total)
 
       if (page) {
         const old = (page - 1) * pagesize
