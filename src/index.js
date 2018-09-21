@@ -21,7 +21,7 @@ app.use(compress())
 app.use(helmet())
 app.use(
   cors({
-    exposedHeaders: ['x-paging-total']
+    exposedHeaders: ['X-Paging-Total']
   })
 )
 app.use(
@@ -41,7 +41,10 @@ io.on('connection', function(socket) {
 
 const init = async () => {
   try {
-    const client = await MongoClient.connect(url)
+    const client = await MongoClient.connect(
+      url,
+      { useNewUrlParser: true }
+    )
     const db = client.db(dbName)
     app.use('/', router(db))
     app.use((err, req, res, next) => {

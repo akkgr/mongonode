@@ -13,10 +13,8 @@ const router = db => {
   api.post('/login', auth(db).login)
   api.post('/upload', files(db).upload)
   api.get('/users', users(db).get)
-  api.get('/nodes', nodes(db).get)
-  api.post('/users', users(db).post)
+  // api.get('/nodes', nodes(db).get)
   api.get('/:collection', data(db).get)
-  api.post('/:collection', data(db).post)
 
   return api
 }

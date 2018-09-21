@@ -3,24 +3,19 @@ const data = db => {
 
   api.get = async (req, res) => {
     const collection = req.params.collection
-    const page = parseInt(req.query.page, 10)
-    console.log('page: ' + page)
     const filter = req.query.filter
-    let pagesize = parseInt(req.query.pagesize, 10)
+    let query = {}
+    if (filter) {
+      query = { $text: { $search: filter } }
+    }
+    const page = parseInt(req.query.page)
+    let pagesize = parseInt(req.query.pageSize)
     if (!pagesize) pagesize = 10
-
-    const fields = ['lastName', 'firstName']
-    const regex = new RegExp(filter, 'i')
-    const query = filter
-      ? {
-          $or: fields.map(field => {
-            return { [field]: regex }
-          })
-        }
-      : {}
+    var docs = []
 
     try {
       var docs = []
+      var total = await db.collection(collection).countDocuments(query)
       if (page) {
         const old = (page - 1) * pagesize
         docs = await db
@@ -35,40 +30,10 @@ const data = db => {
           .find(query)
           .toArray()
       }
+      res.set('X-Paging-Total', total)
       res.json(docs)
     } catch (err) {
       res.status(500).send(err)
-    }
-  }
-
-  api.post = async (req, res) => {
-    const collection = req.params.collection
-    const page = req.params.page
-    var pagesize = req.params.pagesize
-    if (!pagesize) pagesize = 10
-    const filter = req.body.filter
-    const order = req.body.order
-    try {
-      var docs = []
-      if (page) {
-        const old = (page - 1) * pagesize
-        docs = await db
-          .collection(collection)
-          .find(filter)
-          .sort(order)
-          .skip(old)
-          .limit(pagesize)
-          .toArray()
-      } else {
-        docs = await db
-          .collection(collection)
-          .find(filter)
-          .sort(order)
-          .toArray()
-      }
-      res.json(docs)
-    } catch (err) {
-      res.status(500).json(err)
     }
   }
 
